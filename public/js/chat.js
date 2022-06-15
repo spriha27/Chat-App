@@ -52,7 +52,7 @@ socket.on('message', (message) => {
 
 socket.on('locationMessage', (location) => {
     const html = Mustache.render(locationMessageTemplate, {
-        username: message.username,
+        username: location.username,
         url: location.url,
         createdAt: moment(location.createdAt).format('hh:mm a')
     })
@@ -61,8 +61,6 @@ socket.on('locationMessage', (location) => {
 })
 
 socket.on('roomData', ({room, users}) => {
-    console.log(room);
-    console.log(users);
     const html = Mustache.render(sidebarTemplate, {room, users})
     document.querySelector('#sidebar').innerHTML = html
 })
@@ -92,7 +90,6 @@ $location.addEventListener('click', (e) => {
             longitude: position.coords.longitude
         }, () => {
             $location.removeAttribute('disabled')
-            console.log("Location shared!");
         })
     })
 })
